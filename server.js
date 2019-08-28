@@ -42,7 +42,7 @@ app.use(expressValidator());
 app.use("/api/post", postRoutes);
 
 
-const port = process.env.PORT || 4011;
+const port = process.env.PORT || 4012;
 app.listen(port, () => {
     console.log(`Server running at: ${port}`);
 });

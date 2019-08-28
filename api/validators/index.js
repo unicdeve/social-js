@@ -12,7 +12,7 @@ exports.createPostValidator = (req, res, next) => {
         max: 150
     });
     // check for errors
-    const errors = req.validtionErrors();
+    const errors = req.validationErrors();
     // show the first error
     if (errors) {
         const firstError = errors.map(error => error.msg)[0];
