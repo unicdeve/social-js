@@ -27,6 +27,7 @@ mongoose.connect(db, {
 
 // import routes
 const postRoutes = require('./api/routes/post');
+const authRoutes = require('./api/routes/auth');
 
 
 // middlewares
@@ -40,6 +41,7 @@ app.use(expressValidator());
 
 // use Routes
 app.use("/api/post", postRoutes);
+app.use("/api/user", authRoutes);
 
 
 const port = process.env.PORT || 4012;
