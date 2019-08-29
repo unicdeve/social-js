@@ -43,5 +43,7 @@ exports.signout = (req, res) => {
 
 
 exports.requireSignin = expressJwt({
-    secret: process.env.JWT_SECRET
+    // if token is valid, jwt appends the verified userId
+    secret: process.env.JWT_SECRET,
+    userProperty: "auth"
 });
