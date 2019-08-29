@@ -31,6 +31,11 @@ const postRoutes = require('./api/routes/post');
 const authRoutes = require('./api/routes/auth');
 
 
+// use Routes
+app.use("/api/user", authRoutes);
+app.use("/api/post", postRoutes);
+
+
 // middlewares
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -39,14 +44,14 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
+app.use((error, req, res, next) => {
+    if(error.name === 'UnauthorizedError') {
+        res.status(401).json({error: "Invalid token; unauthorized"});
+    }
+});
 
 
-// use Routes
-app.use("/api/post", postRoutes);
-app.use("/api/user", authRoutes);
-
-
-const port = process.env.PORT || 4012;
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
     console.log(`Server running at: ${port}`);
 });

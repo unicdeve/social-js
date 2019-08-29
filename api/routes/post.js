@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { requireSignin } = require('../controllers/auth');
 const { createPostValidator } = require('../validators');
 
 
@@ -10,7 +11,7 @@ const { getPosts, createPost } = require('../controllers/post');
 // @route GET api/posts/test
 // @desc Get all post route
 // @access Public
-router.get('/all', getPosts);
+router.get('/all', requireSignin, getPosts);
 
 // @route POST api/post
 // @desc Create new post route
