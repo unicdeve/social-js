@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     salt: String,
-    creted: {
+    created: {
         type: Date,
         default: Date.now
     },

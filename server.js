@@ -29,11 +29,13 @@ mongoose.connect(db, {
 // import routes
 const postRoutes = require('./api/routes/post');
 const authRoutes = require('./api/routes/auth');
+const userRoutes = require('./api/routes/user');
 
 
 // use Routes
 app.use("/api/user", authRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/user", userRoutes);
 
 
 // middlewares
