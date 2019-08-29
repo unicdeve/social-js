@@ -4,13 +4,19 @@ const { userSignupValidator } = require('../validators');
 
 
 // Controllers
-const { signup } = require('../controllers/auth');
+const { signup, signin } = require('../controllers/auth');
 
 
-// @route POST api/post
-// @desc Create new user route
+// @route POST api/auth/signin
+// @desc Create new user
 // @access Public
 router.post('/signup', userSignupValidator, signup);
+
+
+// @route POST api/auth/signin
+// @desc Signin user
+// @access Public
+router.post('/signin', signin);
 
 
 module.exports = router;

@@ -2,6 +2,7 @@ const express  = require("express");
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
@@ -36,6 +37,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(expressValidator());
 
 
