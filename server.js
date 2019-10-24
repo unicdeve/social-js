@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
+const fs = require('fs');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -45,6 +46,13 @@ app.use(expressValidator());
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/user", userRoutes);
+// apiDocs route
+app.get('/', (req, res) => {
+    fs.readFile('docs/apiDocs.json', (err, fileData) => {
+        if (err) res.status(400).json({ error: err });
+        res.json(JSON.parse(fileData))
+    })
+})
 // UnauthorizedError custom error middleware
 app.use((error, req, res, next) => {
     if(error.name === 'UnauthorizedError') {
