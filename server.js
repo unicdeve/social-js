@@ -32,12 +32,6 @@ const authRoutes = require('./api/routes/auth');
 const userRoutes = require('./api/routes/user');
 
 
-// use Routes
-app.use("/api/user", authRoutes);
-app.use("/api/post", postRoutes);
-app.use("/api/user", userRoutes);
-
-
 // middlewares
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -46,6 +40,12 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
+
+// use Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/post", postRoutes);
+app.use("/api/user", userRoutes);
+// UnauthorizedError custom error middleware
 app.use((error, req, res, next) => {
     if(error.name === 'UnauthorizedError') {
         res.status(401).json({error: "Invalid token; unauthorized"});
