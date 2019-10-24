@@ -8,6 +8,18 @@ const postSchema = new mongoose.Schema({
     body: {
         type: String,
         required: true
+    },
+    photo: {
+        type: Buffer,
+        contentType: String
+    },
+    postedBy: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User"
+    },
+    created: {
+        type: Date,
+        default: Date.now
     }
 });
 
