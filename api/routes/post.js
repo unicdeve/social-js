@@ -12,15 +12,15 @@ const { userById } = require('../controllers/user');
 // @route GET api/posts/test
 // @desc Get all post route
 // @access Public
-router.get('/all', requireSignin, getPosts);
+router.get('/all', getPosts);
 
 // @route POST api/post
 // @desc Create new post route
 // @access Public
 router.post('/create', requireSignin, createPostValidator, createPost);
 
-// @route GET api/auth/user
-// @desc Get user by ID
+// @route PARAM api/auth/user
+// @desc If request has userId parameter, execute userById() first
 // @access Public
 router.param('userId', userById);
 

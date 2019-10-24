@@ -22,12 +22,12 @@ router.post('/signin', signin);
 
 // @route GET api/auth/signin
 // @desc Sign out user
-// @access Public
+// @access Private
 router.get('/signout', signout);
 
 
-// @route GET api/auth/user
-// @desc Get user by ID
+// @route PARAM api/auth/user
+// @desc If request has userId parameter, execute userById() first
 // @access Public
 router.param('userId', userById);
 

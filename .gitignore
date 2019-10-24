@@ -4,6 +4,7 @@
 /config/keys_dev.js
 
 .env
+.idea
 
 /.pnp
 .pnp.js

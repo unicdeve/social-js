@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const User = require('../models/user');
 
 
@@ -18,14 +19,27 @@ exports.getUser = (req, res) => {
 
 exports.userById = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
-        if(err || !user) res.status(400).json({error: "User not found"})
+        if(err || !user) return res.status(400).json({error: "User not found"})
         req.profile = user;     // append profile with user info to req
         next()
     })
-}
+};
+
+
+exports.updateUser = (req, res) => {
+    let user = req.profile;
+    user = _.extend(user, req.body);   // it mutates the user object
+    user.updated = Date.now();
+    user.save((err) => {
+        if(err) res.status(400).json({error: "You are not authorized to perform this action"});
+        req.user.hashed_password = undefined;
+        req.user.salt = undefined;
+        res.json(user);
+    });
+};
 
 
 exports.hasAuthorization = (req, res, next) => {
     const authorized = req.profile && req.auth && req.profile._id === req.auth._id;
     if(!authorized) res.status(403).json({error: "User not authorized to perform this action."})
-}
+};
