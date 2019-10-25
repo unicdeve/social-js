@@ -49,6 +49,7 @@ exports.deleteUser = (req, res, next) => {
 
 
 exports.hasAuthorization = (req, res, next) => {
-    const authorized = req.profile && req.auth && req.profile._id === req.auth._id;
-    if(!authorized) res.status(403).json({error: "User not authorized to perform this action."})
+    const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
+    if(!authorized) res.status(403).json({error: "User not authorized to perform this action."});
+    next();
 };

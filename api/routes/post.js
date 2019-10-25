@@ -5,7 +5,14 @@ const { createPostValidator } = require('../validators');
 
 
 // Controllers
-const { getPosts, createPost, postsByUser, postById } = require('../controllers/post');
+const {
+    getPosts,
+    createPost,
+    postsByUser,
+    postById,
+    isPoster,
+    deletePost
+} = require('../controllers/post');
 const { userById } = require('../controllers/user');
 
 
@@ -18,6 +25,11 @@ router.get('/all', getPosts);
 // @desc Get all post by :userId
 // @access Public
 router.get('/by/:userId', requireSignin, postsByUser);
+
+// @route DELETE api/posts/:postId
+// @desc Delete post :postId
+// @access Public
+router.get('/:userId', requireSignin, isPoster, deletePost);
 
 // @route POST api/post
 // @desc Create new post route
