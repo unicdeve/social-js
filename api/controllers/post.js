@@ -11,6 +11,17 @@ exports.getPosts = (req, res) => {
 };
 
 
+exports.postById = (req, res, next, id) => {
+    Post.findById(id)
+        .populate("postedBy", "_id name")
+        .exec((err, post) => {
+            if (err) res.status(400).json({error: err});
+            req.post = post;
+            next();
+        })
+}
+
+
 exports.postsByUser = (req, res) => {
     Post.find({ postedBy: req.profile._id})
         .populate("postedBy", "_id name")

@@ -5,7 +5,7 @@ const { createPostValidator } = require('../validators');
 
 
 // Controllers
-const { getPosts, createPost, postsByUser } = require('../controllers/post');
+const { getPosts, createPost, postsByUser, postById } = require('../controllers/post');
 const { userById } = require('../controllers/user');
 
 
@@ -25,9 +25,16 @@ router.get('/by/:userId', requireSignin, postsByUser);
 router.post('/new/:userId', requireSignin, createPost, createPostValidator);
 
 // @route PARAM api/auth/user
-// @desc If request has userId parameter, execute userById() first
+// @desc If request has userId param, execute userById() first,
+// then add req.profile to the req body
 // @access Public
 router.param('userId', userById);
+
+// @route PARAM api/post/:postId
+// @desc If request has postId param, execute postById() first
+// then add req.post to the req body
+// @access Public
+router.param('postId', postById);
 
 
 module.exports = router;
