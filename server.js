@@ -1,6 +1,7 @@
 const express  = require("express");
 const app = express();
 const mongoose = require('mongoose');
+// const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
@@ -41,6 +42,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
+// app.use(cors());
 
 // use Routes
 app.use("/api/auth", authRoutes);

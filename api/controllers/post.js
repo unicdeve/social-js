@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const _ = require('lodash');
 const fs = require('fs');
 // const formidable = require('formidable') // will install package
 
@@ -37,6 +38,17 @@ exports.isPoster = (req, res, next) => {
     let isPoster = req.post && req.auth && req.post.postedBy._id == req.auth._id;
     if(!isPoster) res.status(403).json({error: "User is not authorized"});
     next();
+}
+
+
+exports.updatePost = (req, res, next) => {
+    let post = req.post;
+    post = _.extend(post, req.body);
+    post.updated = Date.now();
+    post.save(err => {
+        if (err) res.status(400).json({ error: err });
+        res.json(post)
+    })
 }
 
 

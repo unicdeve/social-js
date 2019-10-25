@@ -11,7 +11,8 @@ const {
     postsByUser,
     postById,
     isPoster,
-    deletePost
+    deletePost,
+    updatePost
 } = require('../controllers/post');
 const { userById } = require('../controllers/user');
 
@@ -23,18 +24,24 @@ router.get('/all', getPosts);
 
 // @route GET api/posts/by/:userId
 // @desc Get all post by :userId
-// @access Public
-router.get('/by/:userId', requireSignin, postsByUser);
+// @access Private
+router.get('/by/:postId', requireSignin, postsByUser);
 
 // @route DELETE api/posts/:postId
 // @desc Delete post :postId
 // @access Public
-router.get('/:userId', requireSignin, isPoster, deletePost);
+router.delete('/:postId', requireSignin, isPoster, deletePost);
+
+// @route PUT api/post
+// @desc Update post
+// @access Private
+router.put('/:postId', requireSignin, requireSignin, isPoster, updatePost);
+
 
 // @route POST api/post
 // @desc Create new post route
-// @access Public
-router.post('/new/:userId', requireSignin, createPost, createPostValidator);
+// @access Private
+router.post('/new/:postId', requireSignin, createPost, createPostValidator);
 
 // @route PARAM api/auth/user
 // @desc If request has userId param, execute userById() first,
