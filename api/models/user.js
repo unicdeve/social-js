@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
+
     hashed_password: {
         type: String,
         trim: true,

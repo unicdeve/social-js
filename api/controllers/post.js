@@ -1,7 +1,7 @@
 const Post = require('../models/post');
 const _ = require('lodash');
 const fs = require('fs');
-// const formidable = require('formidable') // will install package
+const formidable = require('formidable') // will install package
 
 exports.getPosts = (req, res) => {
     const posts = Post.find()
