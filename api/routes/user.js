@@ -11,7 +11,9 @@ const {
     deleteUser,
     getUserImage,
     addFollowing,
-    addFollowers
+    addFollower,
+    removeFollower,
+    removeFollowing
 } = require('../controllers/user');
 
 
@@ -45,10 +47,16 @@ router.delete('/:userId', requireSignin, deleteUser);
 router.get('/photo/:userId', getUserImage);
 
 
-// @route PUT api/user/following
+// @route PUT api/user/follow
 // @desc add following and follower
-// @access Public
-router.put('/follow', requireSignin, addFollowers, addFollowing);
+// @access Private
+router.put('/follow', requireSignin, addFollower, addFollowing);
+
+
+// @route PUT api/user/unfollow
+// @desc add unfollowing
+// @access Private
+router.put('/unfollow', requireSignin, removeFollower, removeFollowing);
 
 
 // @route PARAM api/auth/user
