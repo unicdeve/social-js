@@ -21,6 +21,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    following: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User"
+    },
+    followers: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User"
+    },
     hashed_password: {
         type: String,
         trim: true,

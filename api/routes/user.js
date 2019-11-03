@@ -3,7 +3,16 @@ const router = express.Router();
 const { requireSignin } = require('../controllers/auth');
 
 // Controllers
-const { userById, allUsers, getUser, updateUser, deleteUser, getUserImage } = require('../controllers/user');
+const {
+    userById,
+    allUsers,
+    getUser,
+    updateUser,
+    deleteUser,
+    getUserImage,
+    addFollowing,
+    addFollowers
+} = require('../controllers/user');
 
 
 // @route GET api/user/all
@@ -34,6 +43,12 @@ router.delete('/:userId', requireSignin, deleteUser);
 // @desc Get user photo
 // @access Public
 router.get('/photo/:userId', getUserImage);
+
+
+// @route PUT api/user/following
+// @desc add following and follower
+// @access Public
+router.put('/follow', requireSignin, addFollowers, addFollowing);
 
 
 // @route PARAM api/auth/user

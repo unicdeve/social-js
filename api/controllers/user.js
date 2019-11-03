@@ -20,11 +20,14 @@ exports.getUser = (req, res) => {
 
 
 exports.userById = (req, res, next, id) => {
-    User.findById(id).exec((err, user) => {
-        if(err || !user) return res.status(400).json({error: "User not found"})
-        req.profile = user;     // append profile with user info to req
-        next()
-    })
+    User.findById(id)
+        .populate('following', '_id name')
+        .populate('followers', '_id name')
+        .exec((err, user) => {
+            if(err || !user) return res.status(400).json({error: "User not found"})
+            req.profile = user;     // append profile with user info to req
+            next()
+        })
 };
 
 
@@ -65,6 +68,37 @@ exports.getUserImage = (req, res, next) => {
         return res.send(req.profile.photo.data);
     }
     next();
+}
+
+
+exports.addFollowing = (req, res, next) => {
+    User.findByIdAndUpdate(req.body.userId, {
+        $push: { following: req.body.followId }
+        },
+        {new: true},
+        (err, result) => {
+            if(err) res.status(400).json({error: err});
+            next();
+        }
+    )
+}
+
+
+exports.addFollower = (req, res, next) => {
+    User.findByIdAndUpdate(req.body.followId, {
+        $push: { followers: req.body.userId }
+        },
+        {new: true},
+    )
+        .populate('following', '_id name')
+        .populate('followers', '_id name')
+        .exec((err, result) => {
+            if(err) res.status(400).json({error: err});
+            result.hashed_password = undefined;
+            result.salt = undefined;
+            res.json(result);
+            next();
+        })
 }
 
 
