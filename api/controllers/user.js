@@ -1,5 +1,7 @@
 const _ = require('lodash');
 const User = require('../models/user');
+const fs = require('fs');
+const formidable = require('formidable');
 
 
 exports.allUsers = (req, res) => {
@@ -27,16 +29,25 @@ exports.userById = (req, res, next, id) => {
 
 
 exports.updateUser = (req, res, next) => {
-    let user = req.profile;
-    user = _.extend(user, req.body);   // it mutates the user object
-    user.updated = Date.now();
-    user.save((err) => {
-        if(err) res.status(400).json({error: "You are not authorized to perform this action"});
-        user.hashed_password = undefined;
-        user.salt = undefined;
-        res.json({ user });
-    });
-};
+    let form = new formidable.IncomingForm();
+    form.keepExtensions = true;
+    form.parse(req, (err, fields, files) => {
+        if(err) return res.status(400).json({error: "Photo could not be uploaded!"});
+        let user = req.profile;
+        user = _.extend(user, fields);
+        user.updated = Date.now();
+        if(files.photo) {
+            user.photo.data = fs.readFileSync(files.photo.path);
+            user.photo.contentType = files.photo.type;
+        }
+        user.save((err, result) => {
+            if(err) res.status(400).json({error: err})
+            user.hashed_password = undefined;
+            user.salt = undefined;
+            res.json(user);
+        })
+    })
+}
 
 
 exports.deleteUser = (req, res, next) => {
@@ -45,6 +56,15 @@ exports.deleteUser = (req, res, next) => {
         if(err) res.status(400).json({error: err});
         res.json({ message: "User deleted successfully" });
     })
+}
+
+
+exports.getUserImage = (req, res, next) => {
+    if(req.profile.photo.data) {
+        res.set(("Content-Type", req.profile.photo.contentType))
+        return res.send(req.profile.photo.data);
+    }
+    next();
 }
 
 

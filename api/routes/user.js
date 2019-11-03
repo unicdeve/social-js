@@ -3,7 +3,7 @@ const router = express.Router();
 const { requireSignin } = require('../controllers/auth');
 
 // Controllers
-const { userById, allUsers, getUser, updateUser, deleteUser } = require('../controllers/user');
+const { userById, allUsers, getUser, updateUser, deleteUser, getUserImage } = require('../controllers/user');
 
 
 // @route GET api/user/all
@@ -30,10 +30,15 @@ router.put('/:userId', requireSignin, updateUser);
 router.delete('/:userId', requireSignin, deleteUser);
 
 
-// @route GET api/auth/user
+// @route GET api/user/:userId
+// @desc Get user photo
+// @access Public
+router.get('/photo/:userId', getUserImage);
+
+
+// @route PARAM api/auth/user
 // @desc Get user by ID
 // @access Public
 router.param('userId', userById);
-
 
 module.exports = router;

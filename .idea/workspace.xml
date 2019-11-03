@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fe87b897-156d-48e4-8790-82de8f90d5df" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/controllers/post.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/controllers/post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/controllers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes/user.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +72,7 @@
       <workItem from="1572091600522" duration="52000" />
       <workItem from="1572116625946" duration="2294000" />
       <workItem from="1572291377451" duration="857000" />
-      <workItem from="1572813145921" duration="130000" />
+      <workItem from="1572813145921" duration="3561000" />
     </task>
     <servers />
   </component>
